@@ -173,14 +173,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapRows: 64
   mapColumns: 64
-  minRoomWidth: 4
+  minRoomWidth: 5
   maxRoomWidth: 9
-  minRoomHeight: 4
+  minRoomHeight: 5
   maxRoomHeight: 9
-  minRoomAmount: 10
-  maxRoomAmount: 15
+  minRoomAmount: 20
+  maxRoomAmount: 25
   roomTries: 100
-  roomMargin: 1
+  corridorRoomCornerOffset: 2
+  roomMargin: 2
 --- !u!4 &707262388
 Transform:
   m_ObjectHideFlags: 0
@@ -379,7 +380,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 99.25
+  orthographic size: 93.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

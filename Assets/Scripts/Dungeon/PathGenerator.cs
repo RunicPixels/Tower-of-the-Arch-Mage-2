@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +21,7 @@ public class PathGenerator : MonoBehaviour
     public int maxRoomAmount = 10;
     public int roomTries = 100;
 
+    public int corridorRoomCornerOffset = 1;
     public int roomMargin = 1;
 
     public char[,] map;
@@ -175,15 +176,15 @@ public class PathGenerator : MonoBehaviour
 
             // Define Corridor Beginning
             Vector2Int beginPos = new Vector2Int(
-                                    UnityEngine.Random.Range(roomList[i].posX, roomList[i].posX + roomList[i].width),
-                                    UnityEngine.Random.Range(roomList[i].posY, roomList[i].posY + roomList[i].height));
+                                    UnityEngine.Random.Range(roomList[i].posX + corridorRoomCornerOffset, roomList[i].posX + roomList[i].width - corridorRoomCornerOffset),
+                                    UnityEngine.Random.Range(roomList[i].posY + corridorRoomCornerOffset, roomList[i].posY + roomList[i].height - corridorRoomCornerOffset));
 
             // Define Corridor End
             Vector2Int endPos  =  new Vector2Int(
-                                    UnityEngine.Random.Range(roomList[iPlus1].posX, roomList[iPlus1].posX + roomList[iPlus1].width),
-                                    UnityEngine.Random.Range(roomList[iPlus1].posY, roomList[iPlus1].posY + roomList[iPlus1].height));
+                                    UnityEngine.Random.Range(roomList[iPlus1].posX + corridorRoomCornerOffset, roomList[iPlus1].posX + roomList[iPlus1].width - corridorRoomCornerOffset),
+                                    UnityEngine.Random.Range(roomList[iPlus1].posY + corridorRoomCornerOffset, roomList[iPlus1].posY + roomList[iPlus1].height - corridorRoomCornerOffset));
             if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
-                CreateCorridor(beginPos.x, beginPos.y, endPos.x, endPos.y); // Draw the Corridor.
+                CreateCorridor(beginPos, endPos); // Draw the Corridor.
             }
             else {
                 Debug.Log("Corridor already connected");
@@ -191,69 +192,146 @@ public class PathGenerator : MonoBehaviour
 
             // Get a random position at the edge of each room.
         }
-
-
-        
         // Check if every rooms has an exit.
     }
 
-    private bool CreateCorridor(int beginX, int beginY, int endX, int endY)
+    private bool CreateCorridor(Vector2Int beginPos, Vector2Int endPos)
     {
         Debug.Log("Drawing Corridor");
 
         // Define a point to which each room builds a line to.
         // Declaring the Position of the point in the map.
-        int posX;
-        int posY;
+        Vector2Int connectingPos;
         // Randomizing the direction of the corridor
-        if (map[beginX, endY] != map[endX, beginY]) // XOR to prevent overlapping. It checks whether none of the ends have a floor on them, or both. If both or none have a floor it will randomize the position.
+        if (map[beginPos.x, endPos.y] != map[endPos.x, beginPos.y] && map[beginPos.x,beginPos.y] != map[beginPos.x,endPos.y]) // XOR to prevent overlapping. It checks whether none of the ends have a floor on them, or both. If both or none have a floor it will randomize the position.
         {
             if (UnityEngine.Random.Range(0f, 1f) > 0.5f)
             {
                 // X Position of First room, Y Position of the Second Room.
-                posX = beginX;
-                posY = endY;
+                connectingPos = new Vector2Int(beginPos.x, endPos.y);
+                
             }
             else
             {
                 // X Position of Second room, X position of the first room.
-                posX = endX;
-                posY = beginY;
+                connectingPos = new Vector2Int(endPos.x, beginPos.y);
             }
         }
         else // If either one direction has a floor it will try to avoid placing it there and instead place it in the other direction to prevent overlapping.
         {
-            if (map[beginX, endY] == floorTileID)
+            if (map[beginPos.x, endPos.y] == floorTileID)
             {
-                posX = endX;
-                posY = beginY;
+                connectingPos = new Vector2Int(endPos.x, beginPos.y);
             }
             else
             {
-                posX = beginX;
-                posY = endY;
+                connectingPos = new Vector2Int(beginPos.x, endPos.y);
             }
         }
 
-        int minX = Math.Min(beginX, endX); // Define Beginning X Point of Path.
-        int maxX = Math.Max(beginX, endX); // Define Ending X Point of Path.
-
-        int minY = Math.Min(beginY, endY); // Define Beginning Y Point of Path.
-        int maxY = Math.Max(beginY, endY); // Define Ending Y Point of Path.
-
-        Debug.Log("minX : " + minX + " maxX : " + maxX + " minY : " + minY + " maxY : " + maxY);
+        DrawCorridor(beginPos, endPos, connectingPos);
+        #region Legacy Implementation
+        //Debug.Log("minPos.x : " + minPos.x + " maxPos.x : " + maxPos.x + " minPos.y : " + minPos.y + " maxPos.y : " + maxPos.y);
 
         // Draw Horizontal
-        for (int x = minX; x <= maxX; x++)
-        {
-            map[x, posY] = floorTileID; // Place Corridor on Map.
-        }
+        //int x = 0;
+        //while (x != endPos.x-beginPos.x) {
+        //    if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
+        //        if (!reverseX) {
+        //            map[beginPos.x + x, currentPos.y] = floorTileID; // Place Corridor on Map.
+        //            x++;
+        //        }
+        //        else {
+        //            map[endPos.x - x, currentPos.y] = floorTileID;
+        //            x--;
+        //        }
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //}
+
+
         // Draw Vertical
-        for (int y = minY; y <= maxY; y++)
-        {
-            map[posX, y] = floorTileID; // Place Corridor on Map.
-        }
+        //int y = 0;
+        //while (y != endPos.y - beginPos.y) {
+        //    if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
+        //        if (!reverseY) {
+        //            map[currentPos.x, beginPos.y + y] = floorTileID; // Place Corridor on Map.
+        //            y++;
+        //        }
+        //        else {
+        //            map[currentPos.x, endPos.y - y] = floorTileID;
+        //            y--;
+        //        }
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //}
+        #endregion
+
+        
+
+        
+
+
+        
+
         return true;
+    }
+
+    private void DrawCorridor(Vector2Int beginPos, Vector2Int endPos, Vector2Int connectingPos) {
+        bool reverseX = false;
+        bool reverseY = false;
+        Vector2Int minPos = new Vector2Int();
+        Vector2Int maxPos = new Vector2Int();
+
+        minPos.x = Math.Min(beginPos.x, endPos.x); // Define Beginning X Point of Path.
+        maxPos.x = Math.Max(beginPos.x, endPos.x); // Define Ending X Point of Path.
+
+        minPos.y = Math.Min(beginPos.y, endPos.y); // Define Beginning Y Point of Path.
+        maxPos.y = Math.Max(beginPos.y, endPos.y); // Define Ending Y Point of Path.
+
+        if (beginPos.x >= maxPos.x) {
+            reverseX = true;
+        }
+        if (beginPos.y >= maxPos.y) {
+            reverseY = true;
+        }
+        // Draw Horizontal
+        for (int x = minPos.x; x <= maxPos.x; x++) {
+            if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
+                if (reverseX) {
+                    map[x, connectingPos.y] = floorTileID; // Place Corridor on Map.
+                }
+                else {
+                    map[maxPos.x + minPos.x - x, connectingPos.y] = floorTileID;
+                }
+            }
+            else {
+                Debug.Log("Corridor already connected");
+                return;
+            }
+        }
+
+        // Draw Vertical
+        for (int y = minPos.y; y <= maxPos.y; y++) {
+            if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
+                if (reverseY) {
+                    map[connectingPos.x, y] = floorTileID; // Place Corridor on Map.
+                }
+                else {
+                    map[connectingPos.x, maxPos.y + minPos.y - y] = floorTileID;
+                }
+            }
+            else {
+                Debug.Log("Corridor already connected");
+                return;
+            }
+
+        }
+        Debug.Log("minPos.x : " + minPos.x + " maxPos.x : " + maxPos.x + " minPos.y : " + minPos.y + " maxPos.y : " + maxPos.y);
     }
     private bool CheckIfPathExists(char[,] map, Vector2Int startPos, Vector2Int endPos, int iteration = 0) {
         // Map is a 2d area/matrix to search through.
@@ -262,27 +340,35 @@ public class PathGenerator : MonoBehaviour
         iteration += 1;
 
         if (startPos == endPos) {
-            Debug.Log("EndPos Found");
+            //Debug.Log("EndPos Found");
             return true;
         }
 
-        if (iteration > 1024) {
+        if (iteration > 2048 || map[startPos.x,endPos.y] == borderTileID) {
             return false;
         }
 
-        map[startPos.x, startPos.y] = 'X';
+        map[startPos.x, startPos.y] = 'O';
 
         Vector2Int dirRight = new Vector2Int(startPos.x + 1,startPos.y);
         Vector2Int dirUp = new Vector2Int(startPos.x, startPos.y + 1);
         Vector2Int dirLeft = new Vector2Int(startPos.x - 1, startPos.y);
         Vector2Int dirDown = new Vector2Int(startPos.x, startPos.y - 1);
 
-        if (map[dirRight.x,dirRight.y] == floorTileID) if(CheckIfPathExists(map, dirRight, endPos, iteration)) return true;
-        if (map[dirUp.x,dirUp.y] == floorTileID) if(CheckIfPathExists(map, dirUp, endPos, iteration)) return true;
-        if (map[dirLeft.x,dirLeft.y] == floorTileID) if(CheckIfPathExists(map, dirLeft, endPos, iteration)) return true;
-        if (map[dirDown.x,dirDown.y] == floorTileID) if(CheckIfPathExists(map, dirDown, endPos, iteration)) return true;
+        if (map[dirRight.x, dirRight.y] == floorTileID) {
+            if (CheckIfPathExists(map, dirRight, endPos, iteration)) return true;
+        }
+        if (map[dirUp.x, dirUp.y] == floorTileID) {
+            if (CheckIfPathExists(map, dirUp, endPos, iteration)) return true;
+        }
+        if (map[dirLeft.x, dirLeft.y] == floorTileID) {
+            if (CheckIfPathExists(map, dirLeft, endPos, iteration)) return true;
+        }
+        if (map[dirDown.x, dirDown.y] == floorTileID) {
+            if (CheckIfPathExists(map, dirDown, endPos, iteration)) return true;
+        }
 
-        Debug.Log("returning false on iteration " + iteration);
+        //Debug.Log("returning false on iteration " + iteration);
         return false;
     }
 }
