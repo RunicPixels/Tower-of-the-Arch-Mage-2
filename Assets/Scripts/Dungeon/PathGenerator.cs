@@ -28,6 +28,16 @@ public class PathGenerator : MonoBehaviour
 
     private List<DungeonRoom> roomList = new List<DungeonRoom>();
 
+    public List<DungeonRoom> RoomList {
+        get {
+            return roomList;
+        }
+
+        private set {
+            roomList = value;
+        }
+    }
+
     // Use this for initialization
     private void Awake()
     {
@@ -94,6 +104,8 @@ public class PathGenerator : MonoBehaviour
         Debug.Log("Current seed = " + mapSeed);
     }
 
+
+    #region Rooms
     private void GenerateRooms(int rooms, int roomTries)
     {
         int roomNumber = 0;
@@ -109,7 +121,7 @@ public class PathGenerator : MonoBehaviour
             if (CreateRoom(startRow, startColumn, roomWidth, roomHeight))
             {
                 // Save the room into a new variable
-                roomList.Add(new DungeonRoom(roomNumber, startRow, startColumn, roomWidth, roomHeight));
+                RoomList.Add(new DungeonRoom(roomNumber, startRow, startColumn, roomWidth, roomHeight));
                 rooms--;
                 roomNumber++;
             }
@@ -150,11 +162,12 @@ public class PathGenerator : MonoBehaviour
 
         return true;
     }
-
+#endregion
+    #region Corridors
     private void GenerateCorridors()
     {
 
-        for (int i = 0; i < roomList.Count; i++)
+        for (int i = 0; i < RoomList.Count; i++)
         {
             //Debug.Log("Roomlist Roomnumber: " + roomList[i].roomNumber + " posX and PosY : " + roomList[i].posX + "x and " + roomList[i].posY + "y, room size is " + roomList[i].width + " wide, and " + roomList[i].height + " high.");
 
@@ -169,20 +182,20 @@ public class PathGenerator : MonoBehaviour
             //}
 
             int iPlus1 = i+1;
-            if(iPlus1 >= roomList.Count)
+            if(iPlus1 >= RoomList.Count)
             {
                 iPlus1 = i;
             }
 
             // Define Corridor Beginning
             Vector2Int beginPos = new Vector2Int(
-                                    UnityEngine.Random.Range(roomList[i].posX + corridorRoomCornerOffset, roomList[i].posX + roomList[i].width - corridorRoomCornerOffset),
-                                    UnityEngine.Random.Range(roomList[i].posY + corridorRoomCornerOffset, roomList[i].posY + roomList[i].height - corridorRoomCornerOffset));
+                                    UnityEngine.Random.Range(RoomList[i].posX + corridorRoomCornerOffset, RoomList[i].posX + RoomList[i].width - corridorRoomCornerOffset),
+                                    UnityEngine.Random.Range(RoomList[i].posY + corridorRoomCornerOffset, RoomList[i].posY + RoomList[i].height - corridorRoomCornerOffset));
 
             // Define Corridor End
             Vector2Int endPos  =  new Vector2Int(
-                                    UnityEngine.Random.Range(roomList[iPlus1].posX + corridorRoomCornerOffset, roomList[iPlus1].posX + roomList[iPlus1].width - corridorRoomCornerOffset),
-                                    UnityEngine.Random.Range(roomList[iPlus1].posY + corridorRoomCornerOffset, roomList[iPlus1].posY + roomList[iPlus1].height - corridorRoomCornerOffset));
+                                    UnityEngine.Random.Range(RoomList[iPlus1].posX + corridorRoomCornerOffset, RoomList[iPlus1].posX + RoomList[iPlus1].width - corridorRoomCornerOffset),
+                                    UnityEngine.Random.Range(RoomList[iPlus1].posY + corridorRoomCornerOffset, RoomList[iPlus1].posY + RoomList[iPlus1].height - corridorRoomCornerOffset));
             if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
                 CreateCorridor(beginPos, endPos); // Draw the Corridor.
             }
@@ -194,6 +207,7 @@ public class PathGenerator : MonoBehaviour
         }
         // Check if every rooms has an exit.
     }
+
 
     private bool CreateCorridor(Vector2Int beginPos, Vector2Int endPos)
     {
@@ -228,7 +242,6 @@ public class PathGenerator : MonoBehaviour
                 connectingPos = new Vector2Int(beginPos.x, endPos.y);
             }
         }
-
         DrawCorridor(beginPos, endPos, connectingPos);
         #region Legacy Implementation
         //Debug.Log("minPos.x : " + minPos.x + " maxPos.x : " + maxPos.x + " minPos.y : " + minPos.y + " maxPos.y : " + maxPos.y);
@@ -371,4 +384,5 @@ public class PathGenerator : MonoBehaviour
         //Debug.Log("returning false on iteration " + iteration);
         return false;
     }
+    #endregion
 }
