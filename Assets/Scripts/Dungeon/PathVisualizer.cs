@@ -11,8 +11,8 @@ public class PathVisualizer : MonoBehaviour
     ///private bool[,] visitedCells;
     private Dictionary<char, GameObject> dungeonGameObjects = new Dictionary<char, GameObject>();
 
-    public int spriteSizeX = 16;
-    public int spriteSizeY = 16;
+    public int spriteSizeX = 1;
+    public int spriteSizeY = 1;
 
     public int xPosition = 0;
     public int yPosition = 0;
@@ -48,7 +48,7 @@ public class PathVisualizer : MonoBehaviour
     //{
     //    //int visitedCellsCount = 0; // Aantal bezochte cellen.
 
-    //    //int enoughMap = (pathGenerator.mapRows - 2) * (pathGenerator.mapColumns - 2) * minMapPerc / 100; // Zorgt ervoor dat een map altijd minstens minMapPerc van de mogelijke ruimte in beslag neemt.
+    //    //int enoughMap = (pathGenerator.mapLength - 2) * (pathGenerator.mapHeight - 2) * minMapPerc / 100; // Zorgt ervoor dat een map altijd minstens minMapPerc van de mogelijke ruimte in beslag neemt.
     //    // int failSafe = 0; // Failsafe om te voorkomen dat de map in een infinite loop komt.
 
     //    //while (visitedCellsCount < enoughMap && failSafe < 500) // Zolang de map niet groot genoeg is en er minder dan 500x geprobeerd is deze te verbeteren.
@@ -63,9 +63,9 @@ public class PathVisualizer : MonoBehaviour
     // Debug.Log("Reachable room check sucessful! The map has " + visitedCellsCount + " rooms. Which is more than the minimal required " + enoughMap + " rooms! ;D"); // Gegevens over succesvolle map grote doorsturen naar console.
     private void InstantiateDungeonPieces()
     {
-        for (int r = 1; r < pathGenerator.mapRows - 1; r++)
+        for (int r = 1; r < pathGenerator.mapLength - 1; r++)
         {
-            for (int c = 1; c < pathGenerator.mapColumns - 1; c++)
+            for (int c = 1; c < pathGenerator.mapHeight - 1; c++)
             {
                 char ch = pathGenerator.map[r, c];
                 //Debug.Log(ch + " at " + r + "," + c);

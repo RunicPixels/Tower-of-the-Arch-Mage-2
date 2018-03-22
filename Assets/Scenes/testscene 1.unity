@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &148142881
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4973729408974298, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &707262386
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,15 +185,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9657b78ece4574696ca7b54c63c9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRows: 64
-  mapColumns: 64
-  minRoomWidth: 5
-  maxRoomWidth: 9
-  minRoomHeight: 5
-  maxRoomHeight: 9
-  minRoomAmount: 20
-  maxRoomAmount: 25
+  mapLength: 128
+  mapHeight: 64
+  minRoomWidth: 3
+  maxRoomWidth: 12
+  minRoomHeight: 3
+  maxRoomHeight: 12
+  minRoomAmount: 30
+  maxRoomAmount: 40
   roomTries: 100
+  amountOfCorridorIterations: 512
   corridorRoomCornerOffset: 2
   roomMargin: 2
 --- !u!4 &707262388
@@ -197,7 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87490d3320d6d4447a4b1651e1c4d0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1622960220203712, guid: e56f09fa87e5c084a81c2bce62883597, type: 2}
+  playerObject: {fileID: 1622960220203712, guid: e56f09fa87e5c084a81c2bce62883597,
+    type: 2}
 --- !u!114 &707262391
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour {
     public int walkDistance = 1;
-    private float internalCD = 0.1f;
+    private float internalCD = 0.05f;
+    private Vector3 basePosition;
     public float cooldown = 0;
     private Rigidbody2D rb;
 	// Use this for initialization
@@ -22,18 +23,22 @@ public class MovePlayer : MonoBehaviour {
     public void Move() {
         if (cooldown < 0) {
             if (Input.GetKey(KeyCode.RightArrow)) {
+                basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.right * walkDistance);
                 cooldown += internalCD;
             }
             if (Input.GetKey(KeyCode.LeftArrow)) {
+                basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.right * -1 * walkDistance);
                 cooldown += internalCD;
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
+                basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.up * -1 * walkDistance);
                 cooldown += internalCD;
             }
             if (Input.GetKey(KeyCode.UpArrow)) {
+                basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.up * walkDistance);
                 cooldown += internalCD;
             }
@@ -41,6 +46,7 @@ public class MovePlayer : MonoBehaviour {
         else {
             cooldown -= Time.deltaTime;
         }
+        SnapPosition();
              
 
     }
@@ -49,7 +55,7 @@ public class MovePlayer : MonoBehaviour {
     }
     public void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Wall") {
-
+            transform.position = basePosition;
         }
     }
 }

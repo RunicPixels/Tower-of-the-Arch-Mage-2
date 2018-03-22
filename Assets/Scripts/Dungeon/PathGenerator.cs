@@ -8,8 +8,8 @@ public class PathGenerator : MonoBehaviour
     const char floorTileID = 'F';
     const char wallTileID = 'O';
     const char borderTileID = 'X';
-    public int mapRows = 8;
-    public int mapColumns = 12;
+    public int mapLength = 8;
+    public int mapHeight = 12;
 
     public int minRoomWidth = 3;
     public int maxRoomWidth = 9;
@@ -20,6 +20,7 @@ public class PathGenerator : MonoBehaviour
     public int minRoomAmount = 5;
     public int maxRoomAmount = 10;
     public int roomTries = 100;
+    public int amountOfCorridorIterations = 256;
 
     public int corridorRoomCornerOffset = 1;
     public int roomMargin = 1;
@@ -53,9 +54,9 @@ public class PathGenerator : MonoBehaviour
     public void DisplayMap()
     {
         string output = "";
-        for (int r = 0; r < mapRows; r++)
+        for (int r = 0; r < mapLength; r++)
         {
-            for (int c = 0; c < mapColumns; c++)
+            for (int c = 0; c < mapHeight; c++)
             {
                 output += map[r, c];
             }
@@ -67,28 +68,28 @@ public class PathGenerator : MonoBehaviour
     // De basis van de map initialiseren, zoals de X's plaatsen rondom de map en de andere plekken van de map vrijmaken d.m.v. een O.
     public void InitializeMap()
     {
-        map = new char[mapRows, mapColumns];
+        map = new char[mapLength, mapHeight];
 
         int mapSeed = System.DateTime.Now.Millisecond;
 
         // Put borderTileIDs in top and bottom rows.
-        for (int c = 0; c < mapColumns; c++)
+        for (int c = 0; c < mapHeight; c++)
         {
             map[0, c] = borderTileID;
-            map[mapRows - 1, c] = borderTileID;
+            map[mapLength - 1, c] = borderTileID;
         }
 
         // Put borderTileIDs in the left and right columns.
-        for (int r = 0; r < mapRows; r++)
+        for (int r = 0; r < mapLength; r++)
         {
             map[r, 0] = borderTileID;
-            map[r, mapColumns - 1] = borderTileID;
+            map[r, mapHeight - 1] = borderTileID;
         }
 
         // Set wallTileID for the other map spaces (which means 'free').
-        for (int r = 1; r < mapRows - 1; r++)
+        for (int r = 1; r < mapLength - 1; r++)
         {
-            for (int c = 1; c < mapColumns - 1; c++)
+            for (int c = 1; c < mapHeight - 1; c++)
             {
                 map[r, c] = 'O';
             }
@@ -115,8 +116,8 @@ public class PathGenerator : MonoBehaviour
             int roomWidth = UnityEngine.Random.Range(minRoomWidth, maxRoomWidth);
             int roomHeight = UnityEngine.Random.Range(minRoomHeight, maxRoomHeight);
             // Row in which the rooms may spawn, roomWidth and Height to constrain within area.
-            int startRow = UnityEngine.Random.Range(2, mapRows - roomWidth - 2);
-            int startColumn = UnityEngine.Random.Range(2, mapColumns - roomHeight - 2);
+            int startRow = UnityEngine.Random.Range(2, mapLength - roomWidth - 2);
+            int startColumn = UnityEngine.Random.Range(2, mapHeight - roomHeight - 2);
             // Generate a room using the startRow (left beginning), startColumn (top beginning), roomWidth ( width of the room) and roomHeight( height of the room)
             if (CreateRoom(startRow, startColumn, roomWidth, roomHeight))
             {
@@ -357,7 +358,7 @@ public class PathGenerator : MonoBehaviour
             return true;
         }
 
-        if (iteration > 2048 || map[startPos.x,endPos.y] == borderTileID) {
+        if (iteration > amountOfCorridorIterations || map[startPos.x,endPos.y] == borderTileID) {
             return false;
         }
 

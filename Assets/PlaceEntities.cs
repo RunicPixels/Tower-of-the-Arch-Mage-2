@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class PlaceEntities : MonoBehaviour {
     private List<DungeonRoom> roomList = new List<DungeonRoom>();
-    public GameObject player;
+    private PathGenerator pathGen;
+    public GameObject playerObject;
+    private GameObject playerInstance;
 	// Use this for initialization
 	void Start () {
-        roomList = GetComponent<PathGenerator>().RoomList;
+        pathGen = GetComponent<PathGenerator>();
+        roomList = pathGen.RoomList;
         SpawnPlayer();
 	}
 
@@ -17,7 +20,7 @@ public class PlaceEntities : MonoBehaviour {
 		
 	}
     private void SpawnPlayer() {
-        Instantiate(player);
-        player.transform.position = new Vector3Int(roomList[0].posX + (roomList[0].width / 2), roomList[0].posY + (roomList[0].height / 2), 0);
+        playerInstance = Instantiate(playerObject);
+        playerInstance.transform.position = new Vector3(roomList[0].posX + (roomList[0].width / 2), (roomList[0].posY + (roomList[0].height / 2)), 0);
     }
 }
