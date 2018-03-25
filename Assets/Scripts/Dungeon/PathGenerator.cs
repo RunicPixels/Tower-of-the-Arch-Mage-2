@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 public class PathGenerator : MonoBehaviour
 {
-    const char floorTileID = 'F';
-    const char wallTileID = 'O';
-    const char borderTileID = 'X';
+    private const char floorTileID = 'F';
+    private const char wallTileID = 'O';
+    private const char borderTileID = 'X';
     public int mapLength = 8;
     public int mapHeight = 12;
 
@@ -36,6 +36,24 @@ public class PathGenerator : MonoBehaviour
 
         private set {
             roomList = value;
+        }
+    }
+
+    public static char FloorTileID {
+        get {
+            return floorTileID;
+        }
+    }
+
+    public static char WallTileID {
+        get {
+            return wallTileID;
+        }
+    }
+
+    public static char BorderTileID {
+        get {
+            return borderTileID;
         }
     }
 
@@ -75,15 +93,15 @@ public class PathGenerator : MonoBehaviour
         // Put borderTileIDs in top and bottom rows.
         for (int c = 0; c < mapHeight; c++)
         {
-            map[0, c] = borderTileID;
-            map[mapLength - 1, c] = borderTileID;
+            map[0, c] = BorderTileID;
+            map[mapLength - 1, c] = BorderTileID;
         }
 
         // Put borderTileIDs in the left and right columns.
         for (int r = 0; r < mapLength; r++)
         {
-            map[r, 0] = borderTileID;
-            map[r, mapHeight - 1] = borderTileID;
+            map[r, 0] = BorderTileID;
+            map[r, mapHeight - 1] = BorderTileID;
         }
 
         // Set wallTileID for the other map spaces (which means 'free').
@@ -139,7 +157,7 @@ public class PathGenerator : MonoBehaviour
             for (int y = 0; y < roomHeight+2*roomMargin; y++)
             {
                 // Draw the assigned "room" symbol on the to be generated map.
-                if (map[startRow - roomMargin + x, startColumn - roomMargin + y] == floorTileID)
+                if (map[startRow - roomMargin + x, startColumn - roomMargin + y] == FloorTileID)
                 {
                     //Debug.Log("Room Already Build at spot! " + (startRow + x) + "," + (startColumn + y));
                     return false;
@@ -154,7 +172,7 @@ public class PathGenerator : MonoBehaviour
             for (int y = 0; y < roomHeight; y++)
             {
                 // Draw the assigned "room" symbol on the to be generated map.
-                map[startRow + x, startColumn + y] = floorTileID;
+                map[startRow + x, startColumn + y] = FloorTileID;
                 //Debug.Log("Tile generated: " + map[startRow + x, startRow + y] + " of which x index = " + x + " and y index = "+ y);
             }
         }
@@ -234,7 +252,7 @@ public class PathGenerator : MonoBehaviour
         }
         else // If either one direction has a floor it will try to avoid placing it there and instead place it in the other direction to prevent overlapping.
         {
-            if (map[beginPos.x, endPos.y] == floorTileID)
+            if (map[beginPos.x, endPos.y] == FloorTileID)
             {
                 connectingPos = new Vector2Int(endPos.x, beginPos.y);
             }
@@ -317,10 +335,10 @@ public class PathGenerator : MonoBehaviour
         for (int x = minPos.x; x <= maxPos.x; x++) {
             if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
                 if (reverseX) {
-                    map[x, connectingPos.y] = floorTileID; // Place Corridor on Map.
+                    map[x, connectingPos.y] = FloorTileID; // Place Corridor on Map.
                 }
                 else {
-                    map[maxPos.x + minPos.x - x, connectingPos.y] = floorTileID;
+                    map[maxPos.x + minPos.x - x, connectingPos.y] = FloorTileID;
                 }
             }
             else {
@@ -333,10 +351,10 @@ public class PathGenerator : MonoBehaviour
         for (int y = minPos.y; y <= maxPos.y; y++) {
             if (CheckIfPathExists(map.Clone() as char[,], beginPos, endPos) == false) {
                 if (reverseY) {
-                    map[connectingPos.x, y] = floorTileID; // Place Corridor on Map.
+                    map[connectingPos.x, y] = FloorTileID; // Place Corridor on Map.
                 }
                 else {
-                    map[connectingPos.x, maxPos.y + minPos.y - y] = floorTileID;
+                    map[connectingPos.x, maxPos.y + minPos.y - y] = FloorTileID;
                 }
             }
             else {
@@ -358,7 +376,7 @@ public class PathGenerator : MonoBehaviour
             return true;
         }
 
-        if (iteration > amountOfCorridorIterations || map[startPos.x,endPos.y] == borderTileID) {
+        if (iteration > amountOfCorridorIterations || map[startPos.x,endPos.y] == BorderTileID) {
             return false;
         }
 
@@ -369,16 +387,16 @@ public class PathGenerator : MonoBehaviour
         Vector2Int dirLeft = new Vector2Int(startPos.x - 1, startPos.y);
         Vector2Int dirDown = new Vector2Int(startPos.x, startPos.y - 1);
 
-        if (map[dirRight.x, dirRight.y] == floorTileID) {
+        if (map[dirRight.x, dirRight.y] == FloorTileID) {
             if (CheckIfPathExists(map, dirRight, endPos, iteration)) return true;
         }
-        if (map[dirUp.x, dirUp.y] == floorTileID) {
+        if (map[dirUp.x, dirUp.y] == FloorTileID) {
             if (CheckIfPathExists(map, dirUp, endPos, iteration)) return true;
         }
-        if (map[dirLeft.x, dirLeft.y] == floorTileID) {
+        if (map[dirLeft.x, dirLeft.y] == FloorTileID) {
             if (CheckIfPathExists(map, dirLeft, endPos, iteration)) return true;
         }
-        if (map[dirDown.x, dirDown.y] == floorTileID) {
+        if (map[dirDown.x, dirDown.y] == FloorTileID) {
             if (CheckIfPathExists(map, dirDown, endPos, iteration)) return true;
         }
 

@@ -1,16 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour {
+public abstract class Entity : MonoBehaviour {
+    public int walkDistance = 1;
+    public float internalCD = 0.05f;
+    public Vector3 basePosition;
+    public float cooldown = 0;
+    public Rigidbody2D rb;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public abstract void Move();
 }
