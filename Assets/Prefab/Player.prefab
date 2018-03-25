@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4501944944417344}
   - component: {fileID: 212065392153627870}
-  - component: {fileID: 114575953939343862}
   - component: {fileID: 50155096950187820}
   - component: {fileID: 114322366695661982}
   - component: {fileID: 61048262895366394}
@@ -99,7 +98,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.135417
+  orthographic size: 5.510417
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -207,19 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de27ef1796266c04c9519a03d15c1d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114575953939343862
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622960220203712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ffe49da29b0b0469d0d4fd245b29d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   walkDistance: 1
+  internalCD: 0.05
+  basePosition: {x: 0, y: 0, z: 0}
   cooldown: 0
+  rb: {fileID: 0}
 --- !u!114 &114938449587779918
 MonoBehaviour:
   m_ObjectHideFlags: 1

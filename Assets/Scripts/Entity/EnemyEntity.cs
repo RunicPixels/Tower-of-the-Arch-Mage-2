@@ -7,14 +7,17 @@ public class EnemyEntity : Entity {
     public GameObject player;
     public bool canMove;
     public bool knowPlayerPosition;
-
+    private int shortestIteration = 0;
+    private char[,] map;
     public int searchDistance = 256; // Distance to which the enemy can detect a player.
 
     // Use this for initialization
     private void Start() {
         rb = GetComponent<Rigidbody2D>();
         generator = FindObjectOfType<PathGenerator>();
-        
+        map = generator.map.Clone() as char[,];
+
+
     }
 
     // Update is called once per frame
@@ -28,23 +31,23 @@ public class EnemyEntity : Entity {
             Vector2Int position = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
             Vector2Int playerPosition = new Vector2Int(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y));
 
-            if (CheckIfPathExists(generator.map.Clone() as char[,], position, playerPosition) == 1) {
+            if (CheckIfPathExists(map.Clone() as char[,], position, playerPosition) == 1) {
                 basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.right * walkDistance);
                 cooldown += internalCD;
                 Debug.Log("Enemy Moving Right");
             }
-            if (CheckIfPathExists(generator.map.Clone() as char[,], position, playerPosition) == 2) {
+            else if (CheckIfPathExists(map.Clone() as char[,], position, playerPosition) == 2) {
                 basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.right * -1 * walkDistance);
                 cooldown += internalCD;
             }
-            if (CheckIfPathExists(generator.map.Clone() as char[,], position, playerPosition) == 3) {
+            else if (CheckIfPathExists(map.Clone() as char[,], position, playerPosition) == 3) {
                 basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.up * -1 * walkDistance);
                 cooldown += internalCD;
             }
-            if (CheckIfPathExists(generator.map.Clone() as char[,], position, playerPosition) == 4) {
+            else if (CheckIfPathExists(map.Clone() as char[,], position, playerPosition) == 4) {
                 basePosition = transform.position;
                 rb.MovePosition(transform.position + transform.up * walkDistance);
                 cooldown += internalCD;
