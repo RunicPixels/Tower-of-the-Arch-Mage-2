@@ -3,44 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEntity : Entity {
+    public float speed = 1;
+    private Vector3 targetPosition;
     // Use this for initialization
     private void Start() {
         rb = GetComponent<Rigidbody2D>();
+        internalCD = 1;
     }
 
     // Update is called once per frame
     private void Update() {
         Move();
-        SnapPosition();
+        //SnapPosition();
     }
 
     public override void Move() {
+        float step = speed * Time.deltaTime;
         if (cooldown < 0) {
             if (Input.GetKey(KeyCode.RightArrow)) {
                 basePosition = transform.position;
-                rb.MovePosition(transform.position + transform.right * walkDistance);
-                cooldown += internalCD;
+                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
+                    Debug.Log(hit.transform.gameObject.tag);
+                    transform.position = basePosition;
+                }
+                    
+                else {
+                    targetPosition = transform.position + transform.right;
+                    cooldown += internalCD;
+                }
             }
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 basePosition = transform.position;
-                rb.MovePosition(transform.position + transform.right * -1 * walkDistance);
-                cooldown += internalCD;
+                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
+                    Debug.Log(hit.transform.gameObject.tag);
+                    transform.position = basePosition;
+                }
+
+                else {
+                    targetPosition = transform.position + transform.right * -1;
+                    cooldown += internalCD;
+                }
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
                 basePosition = transform.position;
-                rb.MovePosition(transform.position + transform.up * -1 * walkDistance);
-                cooldown += internalCD;
+                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
+                    Debug.Log(hit.transform.gameObject.tag);
+                    transform.position = basePosition;
+                }
+
+                else {
+                    targetPosition = transform.position + transform.up * -1;
+                    cooldown += internalCD;
+                }
             }
             if (Input.GetKey(KeyCode.UpArrow)) {
                 basePosition = transform.position;
-                rb.MovePosition(transform.position + transform.up * walkDistance);
-                cooldown += internalCD;
+                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
+                    Debug.Log(hit.transform.gameObject.tag);
+                    transform.position = basePosition;
+                }
+
+                else {
+                    targetPosition = transform.position + transform.up;
+                    cooldown += internalCD;
+                }
             }
         }
         else {
-            cooldown -= Time.deltaTime;
+            cooldown -= speed * Time.deltaTime;
         }
-        SnapPosition();
+        if(transform.position != targetPosition && cooldown > 0) transform.position = Vector3.MoveTowards(transform.position, targetPosition,step);
+        if(transform.position == targetPosition) {
+            SnapPosition();
+        }
+        //SnapPosition();
 
 
     }
@@ -49,7 +89,7 @@ public class PlayerEntity : Entity {
     }
     public void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Wall") {
-            transform.position = basePosition;
+            transform.position = targetPosition;
         }
     }
 }
