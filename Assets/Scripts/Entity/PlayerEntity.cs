@@ -22,10 +22,9 @@ public class PlayerEntity : Entity {
         if (cooldown < 0) {
             if (Input.GetKey(KeyCode.RightArrow)) {
                 basePosition = transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, walkDistance);
                 if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
                     Debug.Log(hit.transform.gameObject.tag);
-                    transform.position = basePosition;
                 }
                     
                 else {
@@ -35,10 +34,9 @@ public class PlayerEntity : Entity {
             }
             if (Input.GetKey(KeyCode.LeftArrow)) {
                 basePosition = transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * -1, walkDistance);
                 if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
                     Debug.Log(hit.transform.gameObject.tag);
-                    transform.position = basePosition;
                 }
 
                 else {
@@ -48,10 +46,9 @@ public class PlayerEntity : Entity {
             }
             if (Input.GetKey(KeyCode.DownArrow)) {
                 basePosition = transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up * -1, walkDistance);
                 if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
                     Debug.Log(hit.transform.gameObject.tag);
-                    transform.position = basePosition;
                 }
 
                 else {
@@ -61,12 +58,10 @@ public class PlayerEntity : Entity {
             }
             if (Input.GetKey(KeyCode.UpArrow)) {
                 basePosition = transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(basePosition, transform.right, walkDistance);
-                if (hit.transform != null && hit.transform.gameObject.tag == "Wall") {
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, walkDistance);
+                if (hit.transform != null && (hit.transform.gameObject.tag == "Wall" || hit.transform.gameObject.tag == "Enemy")) {
                     Debug.Log(hit.transform.gameObject.tag);
-                    transform.position = basePosition;
                 }
-
                 else {
                     targetPosition = transform.position + transform.up;
                     cooldown += internalCD;
@@ -75,9 +70,12 @@ public class PlayerEntity : Entity {
         }
         else {
             cooldown -= speed * Time.deltaTime;
+           
         }
-        if(transform.position != targetPosition && cooldown > 0) transform.position = Vector3.MoveTowards(transform.position, targetPosition,step);
-        if(transform.position == targetPosition) {
+        if (transform.position != targetPosition && cooldown > 0) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+        }
+        if(transform.position == targetPosition || cooldown < 0) {
             SnapPosition();
         }
         //SnapPosition();
