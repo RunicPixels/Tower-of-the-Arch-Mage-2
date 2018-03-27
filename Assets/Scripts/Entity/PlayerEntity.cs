@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cheezegami.Pathfinding;
 
 public class PlayerEntity : Entity {
-    public float speed = 1;
     private Vector3 targetPosition;
     // Use this for initialization
     private void Start() {
@@ -14,7 +14,6 @@ public class PlayerEntity : Entity {
     // Update is called once per frame
     private void Update() {
         Move();
-        //SnapPosition();
     }
 
     public override void Move() {

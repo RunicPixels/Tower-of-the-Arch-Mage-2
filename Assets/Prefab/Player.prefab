@@ -97,7 +97,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.135417
+  orthographic size: 6.203125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -167,8 +167,8 @@ MonoBehaviour:
   targetCameraHalfHeight: 16
   pixelPerfect: 1
   retroSnap: 1
-  assetsPixelsPerUnit: 48
-  showHUD: 1
+  assetsPixelsPerUnit: 32
+  showHUD: 0
 --- !u!114 &114322366695661982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,11 +181,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkDistance: 1
+  speed: 12
   internalCD: 1
   basePosition: {x: 0, y: 0, z: 0}
   cooldown: 0
   rb: {fileID: 0}
-  speed: 5
 --- !u!114 &114938449587779918
 MonoBehaviour:
   m_ObjectHideFlags: 1

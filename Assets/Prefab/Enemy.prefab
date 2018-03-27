@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114061073546500538}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,9 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkDistance: 1
-  internalCD: 0.05
+  speed: 5
+  internalCD: 1
   basePosition: {x: 0, y: 0, z: 0}
-  cooldown: 0
+  cooldown: 1
   rb: {fileID: 0}
   generator: {fileID: 0}
   player: {fileID: 0}

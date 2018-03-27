@@ -143,14 +143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9657b78ece4574696ca7b54c63c9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapLength: 32
-  mapHeight: 32
+  mapLength: 64
+  mapHeight: 64
   minRoomWidth: 3
   maxRoomWidth: 6
   minRoomHeight: 3
   maxRoomHeight: 6
   minRoomAmount: 5
-  maxRoomAmount: 12
+  maxRoomAmount: 18
   roomTries: 100
   amountOfCorridorIterations: 512
   corridorRoomCornerOffset: 2
