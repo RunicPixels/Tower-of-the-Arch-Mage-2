@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 public class PathGenerator : MonoBehaviour
 {
-    private const char floorTileID = 'F';
-    private const char wallTileID = 'O';
-    private const char borderTileID = 'X';
     public int mapLength = 8;
     public int mapHeight = 12;
 
@@ -26,6 +23,10 @@ public class PathGenerator : MonoBehaviour
     public int roomMargin = 1;
 
     public char[,] map;
+
+    private const char floorTileID = 'F';
+    private const char wallTileID = 'O';
+    private const char borderTileID = 'X';
 
     private List<DungeonRoom> roomList = new List<DungeonRoom>();
 
@@ -63,11 +64,7 @@ public class PathGenerator : MonoBehaviour
         InitializeMap();
         DisplayMap();
     }
-    // Update is called once per frame
-    private void Update()
-    {
 
-    }
     // De map naar de console loggen.
     public void DisplayMap()
     {

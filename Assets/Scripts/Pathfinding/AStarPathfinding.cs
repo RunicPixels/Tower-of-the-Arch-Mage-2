@@ -4,9 +4,8 @@ using System.Linq;
 using UnityEngine;
 
 namespace Cheezegami.Pathfinding {
-    class AStarPathfinding { // Inspired by https://github.com/davecusatis/A-Star-Sharp/blob/master/Astar.cs to create functional aStar pathfinding.
+    public class AStarPathfinding { // Inspired by https://github.com/davecusatis/A-Star-Sharp/blob/master/Astar.cs to create functional aStar pathfinding.
         private List<List<Node>> grid;
-
 
         public AStarPathfinding(List<List<Node>> grid) {
             this.grid = grid;
@@ -41,12 +40,11 @@ namespace Cheezegami.Pathfinding {
                 closedList.Add(current);
                 adjacencies = GetAdjacentNodes(current);
 
-
                 foreach (Node n in adjacencies) {
                     if (!closedList.Contains(n) && n.walkable) {
                         if (!openList.Contains(n)) {
                             n.parent = current;
-                            n.distanceToEnd = Math.Abs(n.position.x - end.position.y) + Math.Abs(n.position.y - end.position.y);
+                            n.distanceToEnd = Math.Abs(n.position.x - end.position.x) + Math.Abs(n.position.y - end.position.y);
                             n.cost = 1 + n.parent.cost;
                             openList.Add(n);
                             openList = openList.OrderBy(node => node.F).ToList<Node>();
@@ -87,7 +85,6 @@ namespace Cheezegami.Pathfinding {
             if (col + 1 < GridCols) {
                 temp.Add(grid[col + 1][row]);
             }
-
             return temp;
         }
     }

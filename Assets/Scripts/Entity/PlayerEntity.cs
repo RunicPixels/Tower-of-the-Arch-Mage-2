@@ -5,6 +5,7 @@ using Cheezegami.Pathfinding;
 
 public class PlayerEntity : Entity {
     private Vector3 targetPosition;
+
     // Use this for initialization
     private void Start() {
         rb = GetComponent<Rigidbody2D>();

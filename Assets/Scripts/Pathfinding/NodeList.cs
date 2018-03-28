@@ -21,8 +21,6 @@ namespace Cheezegami.Pathfinding {
 
             List<List<Node>> temp = new List<List<Node>>();
             bool walkable = false;
-            float tempX = 0;
-            float tempY = 0;
 
             for (int x = 0; x < width; x++) {
                 temp.Add(new List<Node>());
@@ -34,10 +32,7 @@ namespace Cheezegami.Pathfinding {
                         walkable = true;
                     }
                     temp[x].Add(new Node(new Vector2Int(x, y), walkable));
-                    tempX += 32;
                 }
-                tempX = 0;
-                tempY += 32;
             }
             return temp;
         }
