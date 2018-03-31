@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cheezegami.Pathfinding;
 
-public class EnemyEntity : Entity {
+public class EnemyEntity : LivingEntity {
     public bool canMove;
     public bool knowPlayerPosition;
     public bool diagonalMovement;
+    [HideInInspector]
     public GameObject player;
 
     private char[,] map;
@@ -20,8 +21,8 @@ public class EnemyEntity : Entity {
     private Vector2Int targetPosition;
 
     // Use this for initialization
-    private void Start() {
-        rb = GetComponent<Rigidbody2D>();
+    public override void Start() {
+        base.Start();
         generator = FindObjectOfType<PathGenerator>();
         map = generator.map.Clone() as char[,];
         list = new NodeList(generator);
@@ -30,12 +31,12 @@ public class EnemyEntity : Entity {
     }
 
     // Update is called once per frame
-    private void Update() {
+    public override void Update() {
         player = FindObjectOfType<PlayerEntity>().gameObject;
-        if (cooldown < 0) {
+        if (moveCooldownCounter <= 0) {
             FindPath();
         }
-        Move();
+        base.Update();
     }
 
     public void FindPath() {
@@ -54,19 +55,19 @@ public class EnemyEntity : Entity {
     }
     public override void Move() {
         float step = speed * Time.deltaTime;
-        if (cooldown < 0) {
+        if (moveCooldownCounter < 0) {
             
-            cooldown += internalCD;
+            moveCooldownCounter += moveCooldown;
         }
         else {
-            cooldown -= speed * Time.deltaTime;
+            moveCooldownCounter -= speed * Time.deltaTime;
 
         }
         Vector3 targetPositionVector3 = new Vector3(targetPosition.x, targetPosition.y);
-        if (transform.position != targetPositionVector3 && cooldown > 0) {
+        if (transform.position != targetPositionVector3 && moveCooldown >= 0) {
             transform.position = Vector3.MoveTowards(transform.position, targetPositionVector3, step);
         }
-        if (transform.position == targetPositionVector3 || cooldown < 0) {
+        if (transform.position == targetPositionVector3 || moveCooldown < 0) {
             SnapPosition();
         }
 
@@ -75,4 +76,9 @@ public class EnemyEntity : Entity {
     public void SnapPosition() {
         transform.position = Vector3Int.RoundToInt(transform.position);
     }
+
+    public override void Die() {
+        Destroy(gameObject);
+    }
+
 }

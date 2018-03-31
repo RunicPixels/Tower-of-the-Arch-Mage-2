@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 212065392153627870}
   - component: {fileID: 50155096950187820}
   - component: {fileID: 114322366695661982}
-  m_Layer: 0
+  - component: {fileID: 58508798898884638}
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -43,7 +44,7 @@ GameObject:
   - component: {fileID: 81568339179836772}
   - component: {fileID: 114938449587779918}
   - component: {fileID: 114080552243594832}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -97,7 +98,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.203125
+  orthographic size: 7.859375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -133,6 +134,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &58508798898884638
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622960220203712}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
 --- !u!81 &81568339179836772
 AudioListener:
   m_ObjectHideFlags: 1
@@ -180,12 +196,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de27ef1796266c04c9519a03d15c1d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDistance: 1
-  speed: 12
-  internalCD: 1
-  basePosition: {x: 0, y: 0, z: 0}
-  cooldown: 0
+  mainCollider: {fileID: 0}
+  speed: 8
   rb: {fileID: 0}
+  basePosition: {x: 0, y: 0, z: 0}
+  health: 5
+  walkDistance: 1
+  moveCooldownCounter: 0.05
+  moveCooldown: 1
+  projectile: {fileID: 1245550584116638, guid: 551dccd9a6557f444803cfe686cd8bed, type: 2}
+  shootCooldown: 1
 --- !u!114 &114938449587779918
 MonoBehaviour:
   m_ObjectHideFlags: 1
