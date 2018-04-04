@@ -27,6 +27,7 @@ class ProjectileEntity : MovingEntity {
     public override void Start() {
         base.Start();
         Debug.Log(direction);
+        Physics2D.IgnoreLayerCollision(10, 10);
         if(caster != null) {
             Physics2D.IgnoreCollision(mainCollider, caster.mainCollider);
         }
@@ -46,13 +47,23 @@ class ProjectileEntity : MovingEntity {
     }
 
     public override void Move() {
-        rb.velocity = direction * speed * Time.deltaTime;
+        rb.velocity = direction.normalized * speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.transform.gameObject.GetComponent<IDamageble>() != null) {
-            IDamageble damagable = collision.transform.gameObject.GetComponent<IDamageble>();
-            damagable.TakeDamage(damage);
+        if (collision.transform != null && caster != null) {
+            if (collision.transform.gameObject.GetComponent<IDamageble>() != null) {
+                if (collision.transform.tag != caster.tag) {
+                    IDamageble damagable = collision.transform.gameObject.GetComponent<IDamageble>();
+                    damagable.TakeDamage(damage);
+                    KillProjectile();
+                }
+                else {
+                    Physics2D.IgnoreCollision(collision.collider, mainCollider);
+                }
+            }
+        }
+        else {
             KillProjectile();
         }
     }

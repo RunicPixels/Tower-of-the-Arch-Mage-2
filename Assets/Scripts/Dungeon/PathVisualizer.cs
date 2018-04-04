@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,7 +61,6 @@ public class PathVisualizer : MonoBehaviour
                     GameObject tile = Instantiate(dungeonGameObject, new Vector3(r * spriteSizeX + xPosition, c * spriteSizeY + yPosition, 0), dungeonGameObject.transform.rotation);
 
 
-                    var randomizer = tile.GetComponent<SpriteRandomizer>();
                     if (tile.GetComponentInChildren<SpriteRandomizer>() != null)
                     {
                         tile.GetComponentInChildren<SpriteRandomizer>().Randomize();

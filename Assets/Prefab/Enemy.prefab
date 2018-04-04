@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50150960345992928}
   - component: {fileID: 58465414869438468}
   - component: {fileID: 114061073546500538}
+  - component: {fileID: 114906095038995446}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCollider: {fileID: 0}
-  speed: 5
+  speed: 1
   rb: {fileID: 0}
   basePosition: {x: 0, y: 0, z: 0}
   health: 5
@@ -98,9 +99,34 @@ MonoBehaviour:
   moveCooldownCounter: 0.05
   moveCooldown: 0
   canMove: 1
+  hasPath: 0
+  canAttack: 0
+  projectile: {fileID: 1721677582212030, guid: d054e5bae1d203143944de2d2cb216c0, type: 2}
   knowPlayerPosition: 1
   diagonalMovement: 0
+  attackRange: 3
   player: {fileID: 0}
+--- !u!114 &114906095038995446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1007050281277488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e43e7170fb45b4b81dcd16d0ff55d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scripts:
+  - {fileID: 4900000, guid: 0c6f12173038e4e4ab47c5eca07d7889, type: 3}
+  autoReset: 1
+  tickOn: 0
+  sourceInfos:
+  - isFoldout: 1
+    breakPoints: 
+    breakPointStatuses: 
+    collapsedLines: 
+    btScript: 
 --- !u!212 &212122092318917680
 SpriteRenderer:
   m_ObjectHideFlags: 1

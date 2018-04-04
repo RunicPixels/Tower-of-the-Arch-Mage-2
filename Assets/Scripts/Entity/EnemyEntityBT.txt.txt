@@ -1,0 +1,23 @@
+tree("Root")
+	// Do Behaviour
+	parallel
+		repeat mute tree("Attack")
+		repeat mute tree("Move")
+		repeat mute tree("FindPath")
+
+tree("Attack")
+	while canAttack
+		sequence
+			Attack
+			Wait 1.0
+
+tree("Move")
+	while canMove 
+		sequence
+			while hasPath
+				sequence
+					Move
+tree("FindPath")
+	while not hasPath
+		sequence
+			FindPath

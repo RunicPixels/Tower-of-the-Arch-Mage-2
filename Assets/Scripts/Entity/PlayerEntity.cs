@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cheezegami.Pathfinding;
 
-public class PlayerEntity : LivingEntity {
-    private Vector3 targetPosition;
-    public GameObject projectile;
+public class PlayerEntity : LivingEntity, IProjectileShooter {
     public float shootCooldown = 1;
+    public GameObject projectile;
+
+    private Vector3 targetPosition;
     private float shootCooldownCounter = 0;
 
     // Use this for initialization
@@ -136,5 +137,9 @@ public class PlayerEntity : LivingEntity {
 
     public override void Die() {
         // GAME OVERRRRRR
+    }
+
+    void IProjectileShooter.Shoot(Vector2 direction) {
+        throw new System.NotImplementedException();
     }
 }

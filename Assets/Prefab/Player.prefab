@@ -204,8 +204,8 @@ MonoBehaviour:
   walkDistance: 1
   moveCooldownCounter: 0.05
   moveCooldown: 1
-  projectile: {fileID: 1245550584116638, guid: 551dccd9a6557f444803cfe686cd8bed, type: 2}
   shootCooldown: 1
+  projectile: {fileID: 1245550584116638, guid: 551dccd9a6557f444803cfe686cd8bed, type: 2}
 --- !u!114 &114938449587779918
 MonoBehaviour:
   m_ObjectHideFlags: 1

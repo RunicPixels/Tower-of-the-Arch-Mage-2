@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,8 +15,8 @@ public class EnterGame : MonoBehaviour {
 		
 	}
 
-    public static void DebugMode()
+    public void StartGame()
     {
-        SceneManager.LoadScene("testscene 1", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Game");
     }
 }

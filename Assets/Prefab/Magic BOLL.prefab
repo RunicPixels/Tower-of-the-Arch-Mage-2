@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58240541498623944}
   - component: {fileID: 114061544983458830}
   - component: {fileID: 95678999158828450}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Magic BOLL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,12 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCollider: {fileID: 0}
-  speed: 100
+  speed: 250
   rb: {fileID: 0}
   basePosition: {x: 0, y: 0, z: 0}
   caster: {fileID: 0}
   damage: 2
-  lifeTime: 10
+  lifeTime: 5
 --- !u!212 &212511952608837620
 SpriteRenderer:
   m_ObjectHideFlags: 1

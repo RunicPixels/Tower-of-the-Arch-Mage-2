@@ -2,16 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlaceEntities : MonoBehaviour {
-    private List<DungeonRoom> roomList = new List<DungeonRoom>();
     public int numberOfEnemies = 5;
-    public int numberOfDoors = 10;
+    private List<DungeonRoom> roomList = new List<DungeonRoom>();
     private PathGenerator pathGen;
+
+    //Player
     public GameObject playerObject;
     private GameObject playerInstance;
+
+    //Enemies
     public GameObject enemyObject;
     private GameObject[] enemyInstance;
+
+    //Doors
     public GameObject doorObject;
     private List<GameObject> doorInstance;
+
+    //Stairs
+    public GameObject stairObject;
+    private GameObject stairInstance;
+
 	// Use this for initialization
 	void Start () {
         pathGen = GetComponent<PathGenerator>();
@@ -32,11 +42,14 @@ public class PlaceEntities : MonoBehaviour {
             }
             
         }
+        stairInstance = Instantiate(stairObject);
+        stairInstance.transform.position = new Vector3(roomList[roomList.Count - 1].posX + Random.Range(0, roomList[roomList.Count - 1].width), (roomList[roomList.Count - 1].posY + Random.Range(0, roomList[roomList.Count-1].height)), 0);
     }
     private void SpawnPlayer() {
         playerInstance = Instantiate(playerObject);
         playerInstance.transform.position = new Vector3(roomList[0].posX + (roomList[0].width / 2), (roomList[0].posY + (roomList[0].height / 2)), 0);
     }
+
     private void SpawnEnemies(int numberOfEnemies) {
         enemyInstance = new GameObject[numberOfEnemies];
         for(int i = 0; i < numberOfEnemies; i++) {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -60,7 +60,7 @@ namespace Cheezegami.Pathfinding {
 
             // if all good, return path
             Node temp = closedList[closedList.IndexOf(current)];
-            while (temp.parent != start && temp != null) {
+            while (temp != null && temp.parent != start) {
                 path.Push(temp);
                 temp = temp.parent;
             }

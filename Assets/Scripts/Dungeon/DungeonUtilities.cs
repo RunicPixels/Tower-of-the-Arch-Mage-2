@@ -16,8 +16,8 @@ static class DungeonUtilities {
         }
         // Right
         for (int i = room.posY; i < room.posY + room.height; i++) {
-            if (map[room.posX + room.width + 1, i] == 'F') {
-                openings.Add(new Vector2Int(room.posX + room.width + 1 - 1, i));
+            if (map[room.posX + room.width, i] == 'F') {
+                openings.Add(new Vector2Int(room.posX + room.width, i));
             }
         }
         // Bottom
