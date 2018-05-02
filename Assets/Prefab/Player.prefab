@@ -98,7 +98,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.203125
+  orthographic size: 7.859375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -196,12 +196,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de27ef1796266c04c9519a03d15c1d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDistance: 1
+  mainCollider: {fileID: 0}
   speed: 8
-  internalCD: 0.05
-  basePosition: {x: 0, y: 0, z: 0}
-  cooldown: 0
   rb: {fileID: 0}
+  basePosition: {x: 0, y: 0, z: 0}
+  health: 5
+  walkDistance: 1
+  moveCooldownCounter: 0
+  moveCooldown: 0.05
+  shootCooldown: 1
+  projectile: {fileID: 1245550584116638, guid: 551dccd9a6557f444803cfe686cd8bed, type: 2}
 --- !u!114 &114938449587779918
 MonoBehaviour:
   m_ObjectHideFlags: 1

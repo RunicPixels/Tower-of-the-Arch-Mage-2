@@ -11,7 +11,7 @@ public class PlaceEntities : MonoBehaviour {
     private GameObject playerInstance;
 
     //Enemies
-    public GameObject enemyObject;
+    public GameObject[] enemyObjects;
     private GameObject[] enemyInstance;
 
     //Doors
@@ -53,7 +53,7 @@ public class PlaceEntities : MonoBehaviour {
     private void SpawnEnemies(int numberOfEnemies) {
         enemyInstance = new GameObject[numberOfEnemies];
         for(int i = 0; i < numberOfEnemies; i++) {
-            enemyInstance[i] = Instantiate(enemyObject);
+            enemyInstance[i] = Instantiate(enemyObjects[Random.Range(0,enemyObjects.Length)]);
             int room = Random.Range(0,roomList.Count-1) + 1;
             enemyInstance[i].transform.position = new Vector3(roomList[room].posX + Random.Range(0, roomList[room].width), (roomList[room].posY + Random.Range(0, roomList[room].height)), 0);
         }

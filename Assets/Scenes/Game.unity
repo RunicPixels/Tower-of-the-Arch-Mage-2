@@ -201,8 +201,9 @@ MonoBehaviour:
   numberOfEnemies: 5
   playerObject: {fileID: 1622960220203712, guid: e56f09fa87e5c084a81c2bce62883597,
     type: 2}
-  enemyObject: {fileID: 1007050281277488, guid: 050f7b9df73c2a041ad53b55bd45395c,
-    type: 2}
+  enemyObjects:
+  - {fileID: 1007050281277488, guid: 050f7b9df73c2a041ad53b55bd45395c, type: 2}
+  - {fileID: 1705281120946864, guid: 08e85ee11c99b2c4287f075060b2607e, type: 2}
   doorObject: {fileID: 1120694690276072, guid: 6373aa410899e5e4eb44a41cc89ddb0b, type: 2}
   stairObject: {fileID: 1042430632502470, guid: d4e2f41db02a96949bd3ae47a68648ff,
     type: 2}
