@@ -36,3 +36,9 @@ I was heavily inspired by the Pokémon Mystery Dungeon games for the algorithm u
 # Programming Structure
 Since I'm trying to have more SOLID programming skills I have tried to use abstract classes and interfaces. The entirity of the Entity Class is very polymorphismic in nature. It inherits from a base, and each further sequence adds more features to a base class. I also used some Interfaces and a few abstract methods where I could.
 
+# A* and Flood Fill
+Both are algorithms I've used to create pathfinding on a 2d Plane, orginally I tried having enemies do pathfinding with a floodfill method, but this proved to be a bit of a hassle because they did not save the original position and the shortest path was not calculated from the get go. The A* proved to be very useful and very effective in finding a path towards the player, even if the enemy didn't have to move their position.
+
+# Behaviour Tree
+PandaBT is a free Unity Plugin I used to create Behaviour trees, you can assign [Task] Parameters towards methods you want to excecute in a BT, and the construction of the BT itself was easily done using plain text format.
+
