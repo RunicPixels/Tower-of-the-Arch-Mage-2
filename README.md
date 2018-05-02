@@ -28,3 +28,11 @@ Further blog & images on my Twitter : https://twitter.com/Cheezegami
 
 Post-Mortem Week 7 :
 Added Blog, Added Second Behaviour Tree, Fixed minor bugs.
+
+# Design Choices
+I choose for the behaviour tree because of it's flexibility and the way it's hierarchy is set up. It's really easy to add in new behaviour as well as tweak older one, it gives structure and an overview to what sometimes can be seen as quite messy.
+I was heavily inspired by the Pokémon Mystery Dungeon games for the algorithm used by the mystery dungeons in that game. You had a seemingly endless variety of rooms while always stumbling across new things.
+
+# Programming Structure
+Since I'm trying to have more SOLID programming skills I have tried to use abstract classes and interfaces. The entirity of the Entity Class is very polymorphismic in nature. It inherits from a base, and each further sequence adds more features to a base class. I also used some Interfaces and a few abstract methods where I could.
+
