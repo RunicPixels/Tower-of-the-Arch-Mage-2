@@ -8,6 +8,12 @@ My AI Flowchart can be found at the root file called "Flowchart.png"
 
 I do NOT own rights to PandaBT and the Pixel Perfect Camera found in the Imported Assets folder and all the rights are owned to their respective creators.
 
+# Goal
+Create smart systems for generating content and agent behaviour.
+
+# Idea
+Create a dungeon generator similar to the ones used in Pokémon Mystery dungeon and work with A* Pathfinding and Behaviour Trees.
+
 # Blog
 Week 1 : Made the AI Analyse of the Holow Knight Enemies
 
@@ -41,4 +47,13 @@ Both are algorithms I've used to create pathfinding on a 2d Plane, orginally I t
 
 # Behaviour Tree
 PandaBT is a free Unity Plugin I used to create Behaviour trees, you can assign [Task] Parameters towards methods you want to excecute in a BT, and the construction of the BT itself was easily done using plain text format.
+
+to a seed that will make Unity uses that seed with it's random generation and thus output results based on the seed.
+
+# Learning Goals
+I want to learn about the following aspects of game development.
+- Procedural Generation
+- AI Agent, Pathfinding and Behaviour Tree
+- SOLID Programming Structure
+- Generating Game Content
 
