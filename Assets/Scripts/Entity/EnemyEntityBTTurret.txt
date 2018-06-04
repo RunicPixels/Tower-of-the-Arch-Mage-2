@@ -12,12 +12,12 @@ tree("Attack")
 			Wait 1.0
 
 tree("CheckCanAttack")
-	while hasPath
-		sequence
-			while not CheckCanAttack
+	while hasPath 
+		while not getCanAttack
+			sequence
 				FindPath
 				Wait 0.75
-			
+
 tree("FindPlayer")
 	while not hasPath
 		sequence

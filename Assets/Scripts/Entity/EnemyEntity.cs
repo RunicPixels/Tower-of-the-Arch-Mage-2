@@ -31,6 +31,13 @@ public class EnemyEntity : LivingEntity, IProjectileShooter {
     private Vector2Int playerPosition;
     private Vector2Int targetPosition;
 
+    [Task]
+    public bool getCanAttack {
+        get {
+            return CheckCanAttack();
+        }
+    }
+
     // Use this for initialization
     public override void Start() {
         base.Start();
@@ -65,7 +72,6 @@ public class EnemyEntity : LivingEntity, IProjectileShooter {
             targetPosition = position;
         }
     }
-    [Task]
     public bool CheckCanAttack() {
         if (path == null) {
             hasPath = false;
