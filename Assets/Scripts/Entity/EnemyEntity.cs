@@ -42,10 +42,15 @@ public class EnemyEntity : LivingEntity, IProjectileShooter {
     }
 
     [Task]
-    public void FindPath() {
+    public void FindPlayer() {
         player = FindObjectOfType<PlayerEntity>().gameObject;
-        position = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         playerPosition = new Vector2Int(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y));
+    }
+
+    [Task]
+    public void FindPath() {
+        FindPlayer();
+        position = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         path = finder.FindPath(position, playerPosition);
         hasPath = true;
 
@@ -61,16 +66,23 @@ public class EnemyEntity : LivingEntity, IProjectileShooter {
         }
     }
     [Task]
-    public override void Move() {
+    public bool CheckCanAttack() {
         if (path == null) {
             hasPath = false;
-            return;
+            return false;
         }
-        if (path.Count <= attackRange) {
+        else if (path.Count <= attackRange) {
             canAttack = true;
-            return;
+            return true;
         }
         else {
+            return false;
+        }
+    }
+
+    [Task]
+    public override void Move() {
+        if(CheckCanAttack() == false) {
             canAttack = false;
             float step = speed * Time.deltaTime;
             if (moveCooldownCounter < 0) {
